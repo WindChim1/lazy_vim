@@ -8,10 +8,10 @@ return {
     "sainnhe/sonokai",
     lazy = true,
   },
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "base16-tender",
-    },
-  },
+  -- {
+  --   "LazyVim/LazyVim",
+  --   opts = {
+  --     colorscheme = "base16-tender",
+  --   },
+  -- },
 }

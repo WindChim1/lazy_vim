@@ -33,8 +33,8 @@ keymap("n", "<C-q>", ":q<CR>", opts)
 keymap("n", "gg", "gg0", opts)
 
 -- better up/down
-keymap("n", "j", "v:count == 0 ? 'gjzz' : 'j'", { expr = true, silent = true })
-keymap("n", "k", "v:count == 0 ? 'gkzz' : 'k'", { expr = true, silent = true })
+keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 --折叠
 keymap("n", "<Leader>o", "za", opts)
