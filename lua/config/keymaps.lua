@@ -90,8 +90,6 @@ keymap({ "n", "x" }, "<C-r><C-w>", "*N", { desc = "Search word under cursor" })
 -- better indenting
 keymap("v", ">", ">gv")
 keymap("v", "<", "<gv")
--- lazy
-keymap("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
 keymap("n", "<leader>us", function()
   Util.toggle("spell")
@@ -148,7 +146,7 @@ end, { desc = "Lazygit (root dir)" })
 
 keymap("n", "\\p", ':lua print(vim.fn.expand("%:p"))<CR>', opts)
 
-keymap("n", "<leader>p", '"0p', opts)
+keymap("n", "P", '"0p', opts)
 
 function CompileRunGcc()
   vim.cmd("w")
