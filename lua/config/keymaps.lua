@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local Util = require("lazyvim.util")
+-- local Util = require("lazyvim.util")
 
 local function keymap(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
@@ -20,21 +20,21 @@ local opts = { noremap = true, silent = true }
 --local keymap = vim.api.nvim_set_keymap
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- keymap("", "<Space>", "<Nop>", opts)
+-- vim.g.mapleader = " "
+-- vim.g.maplocalleader = " "
 
 --vim.cmd[[noremap ; :]]
 -- keymap("n", ";", ":", {})
 -- 保存退出
-keymap({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+-- keymap({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 keymap("n", "<C-q>", ":q<CR>", opts)
 --keymap("n", "vv", "V", opts)
-keymap("n", "gg", "gg0", opts)
+-- keymap("n", "gg", "gg0", opts)
 
 -- better up/down
-keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 --折叠
 keymap("n", "<Leader>o", "za", opts)
@@ -43,6 +43,7 @@ keymap("n", "<C-a>", "gg0vG$", opts)
 -- ===
 -- === 光标移动
 -- ===
+
 --keymap("n", "<Leader>k", "<C-w>k", opts)
 --keymap("n", "<Leader>j", "<C-w>j", opts)
 --keymap("n", "<Leader>h", "<C-w>h", opts)
@@ -55,7 +56,7 @@ keymap("n", "<C-l>", "$", opts)
 -- keymap("n", "E", "5e", opts)
 -- keymap("n", "B", "5b", opts)
 keymap("i", "<C-a>", "<C-o>$", opts)
-keymap("i", "<C-b>", "<C-o>0", opts)
+keymap("i", "<C-i>", "<C-o>0", opts)
 keymap("i", "<C-k>", "<Up>", opts)
 keymap("i", "<C-j>", "<Down>", opts)
 keymap("i", "<C-h>", "<Left>", opts)
@@ -91,9 +92,10 @@ keymap({ "n", "x" }, "<C-r><C-w>", "*N", { desc = "Search word under cursor" })
 keymap("v", ">", ">gv")
 keymap("v", "<", "<gv")
 
-keymap("n", "<leader>us", function()
-  Util.toggle("spell")
-end, { desc = "Toggle Spelling" })
+-- keymap("n", "<leader>us", function()
+--   Util.toggle("spell")
+-- end, { desc = "Toggle Spelling" })
+
 --翻页
 keymap("n", "<C-k>", "<C-U>", opts)
 keymap("n", "<C-j>", "<C-D>", opts)
@@ -120,29 +122,29 @@ keymap("n", "<Leader>q", "<C-w>j:q<CR>", opts)
 -- === Tab management
 -- ===
 keymap("n", "tu", ":tabe<CR>", opts)
-keymap("n", "tU", ":tab split<CR>", opts)
-keymap("n", "th", ":-tabnext<CR>", opts)
-keymap("n", "tl", ":+tabnext<CR>", opts)
-keymap("n", "tmh", ":-tabmove<CR>", opts)
-keymap("n", "tml", ":+tabmove<CR>", opts)
+-- keymap("n", "tU", ":tab split<CR>", opts)
+-- keymap("n", "th", ":-tabnext<CR>", opts)
+-- keymap("n", "tl", ":+tabnext<CR>", opts)
+-- keymap("n", "tmh", ":-tabmove<CR>", opts)
+-- keymap("n", "tml", ":+tabmove<CR>", opts)
 
 -- buffers
-if Util.has("bufferline.nvim") then
-  keymap("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-  keymap("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-else
-  keymap("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-  keymap("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
-end
+-- if Util.has("bufferline.nvim") then
+--   keymap("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+--   keymap("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+-- else
+--   keymap("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+--   keymap("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
+-- end
 
 keymap("n", "<LEADER>.", ":set splitbelow<CR>:split<CR>:res +5<CR>:term<CR>", opts)
 keymap("n", "<LEADER>/", ":set splitbelow<CR>:split<CR>:res +5<CR>:cd %:p:h|term<CR>", opts)
-keymap({ "i", "v", "t" }, "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+-- keymap({ "i", "v", "t" }, "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
 -- lazygit
-keymap("n", "<leader>lg", function()
-  Util.float_term({ "lazygit" }, { cwd = Util.get_root(), esc_esc = false })
-end, { desc = "Lazygit (root dir)" })
+-- keymap("n", "<leader>lg", function()
+--   Util.float_term({ "lazygit" }, { cwd = Util.get_root(), esc_esc = false })
+-- end, { desc = "Lazygit (root dir)" })
 
 keymap("n", "\\p", ':lua print(vim.fn.expand("%:p"))<CR>', opts)
 
