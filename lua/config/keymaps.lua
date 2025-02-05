@@ -102,12 +102,12 @@ keymap("n", "<C-j>", "<C-D>", opts)
 -- ===
 -- === 窗口管理
 -- ===
-keymap("n", "r", "<nop>", opts)
-keymap("n", "<leader>sk", ":set nosplitbelow<CR>:split<CR>:set splitbelow<CR>", opts)
-keymap("n", "<leader>sj", ":set splitbelow<CR>:split<CR>", opts)
-keymap("n", "<leader>sh", ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", opts)
-keymap("n", "<leader>sl", ":set splitright<CR>:vsplit<CR>", opts)
-keymap("n", "qf", "<C-w>o", opts)
+-- keymap("n", "r", "<nop>", opts)
+-- keymap("n", "<leader>sk", ":set nosplitbelow<CR>:split<CR>:set splitbelow<CR>", opts)
+-- keymap("n", "<leader>sj", ":set splitbelow<CR>:split<CR>", opts)
+-- keymap("n", "<leader>sh", ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", opts)
+-- keymap("n", "<leader>sl", ":set splitright<CR>:vsplit<CR>", opts)
+-- keymap("n", "qf", "<C-w>o", opts)
 -- Resize splits with arrow keys
 keymap("n", "<Up>", ":res +5<CR>", opts)
 keymap("n", "<Down>", ":res -5<CR>", opts)
@@ -115,9 +115,9 @@ keymap("n", "<Left>", ":vertical resize+5<CR>", opts)
 keymap("n", "<Right>", ":vertical resize-5<CR>", opts)
 
 -- 窗口转换横竖位置
-keymap("n", "<lead>srk", "<C-w>b<C-w>K", opts)
-keymap("n", "<lead>srh", "<C-w>b<C-w>H", opts)
-keymap("n", "<Leader>q", "<C-w>j:q<CR>", opts)
+-- keymap("n", "<lead>srk", "<C-w>b<C-w>K", opts)
+-- keymap("n", "<lead>srh", "<C-w>b<C-w>H", opts)
+-- keymap("n", "<Leader>q", "<C-w>j:q<CR>", opts)
 -- ===
 -- === Tab management
 -- ===
@@ -137,8 +137,8 @@ keymap("n", "tu", ":tabe<CR>", opts)
 --   keymap("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 -- end
 
-keymap("n", "<LEADER>.", ":set splitbelow<CR>:split<CR>:res +5<CR>:term<CR>", opts)
-keymap("n", "<LEADER>/", ":set splitbelow<CR>:split<CR>:res +5<CR>:cd %:p:h|term<CR>", opts)
+-- keymap("n", "<LEADER>.", ":set splitbelow<CR>:split<CR>:res +5<CR>:term<CR>", opts)
+keymap("n", "<LEADER>.", ":set splitbelow<CR>:split<CR>:res +5<CR>:cd %:p:h|term<CR>", opts)
 -- keymap({ "i", "v", "t" }, "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
 -- lazygit
