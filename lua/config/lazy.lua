@@ -25,8 +25,8 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lang.toml" },
     { import = "lazyvim.plugins.extras.lang.python" },
-    { import = "lazyvim.plugins.extras.lang.go" },
-    { import = "lazyvim.plugins.extras.ai.copilot" },
+    -- { import = "lazyvim.plugins.extras.lang.go" },
+    { import = "lazyvim.plugins.extras.ai.supermaven" },
     { import = "plugins" },
   },
   defaults = {
