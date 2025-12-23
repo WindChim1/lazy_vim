@@ -61,4 +61,27 @@ return {
       end
     end,
   },
+  {
+    "mrcjkb/rustaceanvim",
+    opts = {
+      server = {
+        default_settings = {
+          -- 这里是 rust-analyzer 的具体设置
+          ["rust-analyzer"] = {
+            procMacro = {
+              ignored = {
+                -- 告诉 analyzer 忽略 leptos_macro 里的 server 宏
+                -- 这样它就不会因为宏展开过于复杂而报错
+                ["leptos_macro"] = { "server" },
+              },
+            },
+            -- (可选) 如果你觉得宏展开太慢卡顿，可以限制一下
+            -- diagnostics = {
+            --   disabled = { "unresolved-proc-macro" },
+            -- },
+          },
+        },
+      },
+    },
+  },
 }
