@@ -12,16 +12,7 @@ return {
         -- 【关键点】把 "rust" 加入到支持的文件类型列表中
         filetypes = {
           "css",
-          "eruby",
           "html",
-          "javascript",
-          "javascriptreact",
-          "less",
-          "sass",
-          "scss",
-          "pug",
-          "typescriptreact",
-          "vue",
           "rust",
         },
         init_options = {
@@ -76,9 +67,9 @@ return {
               },
             },
             -- (可选) 如果你觉得宏展开太慢卡顿，可以限制一下
-            -- diagnostics = {
-            --   disabled = { "unresolved-proc-macro" },
-            -- },
+            diagnostics = {
+              disabled = { "unresolved-proc-macro" },
+            },
           },
         },
       },
