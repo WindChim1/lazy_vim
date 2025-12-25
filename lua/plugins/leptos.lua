@@ -41,17 +41,6 @@ return {
     end,
   },
 
-  -- 3. (可选) 增强高亮支持
-  -- 即使有了 rustaceanvim，有时候 view! 里的标签颜色还是不对
-  -- 这是一个简单的 Treesitter 注入配置
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "html", "css", "rust" })
-      end
-    end,
-  },
   {
     "mrcjkb/rustaceanvim",
     opts = {
@@ -74,5 +63,85 @@ return {
         },
       },
     },
+  },
+  -- =========================================================
+  -- 4. 【新增】 配置 blink.cmp 进行过滤
+  -- =========================================================
+
+  {
+    "saghen/blink.cmp",
+    opts = function(_, opts)
+      -- 【核心修改】更健壮的检查函数
+      local function is_in_rust_view_macro()
+        local buf = vim.api.nvim_get_current_buf()
+        -- 1. 检查 buffer 是否有效，防止无效引用
+        if not vim.api.nvim_buf_is_valid(buf) then
+          return false
+        end
+
+        -- 2. 使用 pcall 保护 get_node，防止 TreeSitter 同步延迟导致的崩溃
+        -- 如果获取节点失败，直接返回 false
+        local ok, node = pcall(vim.treesitter.get_node)
+        if not ok or not node then
+          return false
+        end
+
+        -- 3. 循环向上查找
+        while node do
+          local type = node:type()
+          if type == "macro_invocation" then
+            -- 获取宏名字节点
+            local name_node = node:child(0)
+            if name_node then
+              -- 4. 获取文本也加 pcall，双重保险
+              local text_ok, text = pcall(vim.treesitter.get_node_text, name_node, buf)
+              if text_ok and text == "view" then
+                return true
+              end
+            end
+          end
+          node = node:parent()
+        end
+        return false
+      end
+
+      opts.sources = opts.sources or {}
+      opts.sources.providers = opts.sources.providers or {}
+      opts.sources.providers.lsp = opts.sources.providers.lsp or {}
+
+      local old_transform = opts.sources.providers.lsp.transform_items
+
+      opts.sources.providers.lsp.transform_items = function(ctx, items)
+        if old_transform then
+          items = old_transform(ctx, items)
+        end
+
+        if vim.bo.filetype ~= "rust" then
+          return items
+        end
+
+        -- 在这里调用安全的函数
+        -- 即使 TreeSitter 报错，函数只会返回 false，不会让编辑器报错
+        local in_view_macro = is_in_rust_view_macro()
+        local filtered_items = {}
+
+        for _, item in ipairs(items) do
+          local keep = true
+          if item.client_id then
+            local client = vim.lsp.get_client_by_id(item.client_id)
+            if client and client.name == "emmet_language_server" then
+              if not in_view_macro then
+                keep = false
+              end
+            end
+          end
+          if keep then
+            table.insert(filtered_items, item)
+          end
+        end
+
+        return filtered_items
+      end
+    end,
   },
 }
