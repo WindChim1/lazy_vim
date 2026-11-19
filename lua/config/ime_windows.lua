@@ -98,16 +98,26 @@ function M.set(state, force)
       return false
     end
   end
-  local actual = M.get(force)
-  return actual ~= nil and M.equal(state, actual)
+  -- 某些输入法(如青简)应用 IMC 命令较慢, 立即读回可能还是旧状态。
+  -- 带重试地验证, 避免竞态把"实际成功"误判为失败。
+  for _ = 1, 4 do
+    local actual = M.get(force)
+    if actual ~= nil and M.equal(state, actual) then
+      return true
+    end
+    vim.uv.sleep(30)
+  end
+  return false
 end
 
 function M.english(state)
   return { open = false, conversion = bit.band(state.conversion, bit.bnot(1)) }
 end
 
+-- 青简的 conversion 恒为 0, 不能用 conv&1 判断中文; 两种输入法都以
+-- open 位作为中英文开关, 因此只看 open。
 function M.toggle(state)
-  if state.open and bit.band(state.conversion, 1) ~= 0 then
+  if state.open then
     return M.english(state)
   end
   return { open = true, conversion = bit.bor(state.conversion, 1) }
